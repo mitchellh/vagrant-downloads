@@ -13,12 +13,13 @@ configure do
   set :aws_access_key_id, ENV["AWS_ACCESS_KEY_ID"]
   set :aws_secret_access_key, ENV["AWS_SECRET_ACCESS_KEY"]
   set :aws_bucket, ENV["AWS_BUCKET"]
+  set :github_repo, ENV["GITHUB_REPO"]
 
   # Sinatra options
   enable :logging
 
   # Global things
-  $tags    = Tags.all("mitchellh/vagrant")
+  $tags    = Tags.all(settings.github_repo)
   $storage = Fog::Storage.new(:provider => :aws,
                               :aws_access_key_id => settings.aws_access_key_id,
                               :aws_secret_access_key => settings.aws_secret_access_key)
