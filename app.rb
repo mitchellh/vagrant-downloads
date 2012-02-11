@@ -19,8 +19,8 @@ def reload!
 
   # This will represent the list of valid tags as well as the full
   # list of packages.
-  $packages = {}
-  $tags = {}
+  result_packages = {}
+  result_tags = {}
 
   # Reload the files listing for the bucket
   $bucket.reload
@@ -33,14 +33,18 @@ def reload!
 
       # First check if we have a valid tag and if so, record it
       if tags.has_key?(commit)
-        $tags[tags[commit]] = commit
+        result_tags[tags[commit]] = commit
       end
 
       # Record the package
-      $packages[commit] ||= []
-      $packages[commit] << file
+      result_packages[commit] ||= []
+      result_packages[commit] << file
     end
   end
+
+  # Flip the bits
+  $packages = result_packages
+  $tags     = result_tags
 end
 
 configure do
