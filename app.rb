@@ -80,5 +80,5 @@ configure do
 end
 
 get '/' do
-  $tags.keys.join("<br />")
+  erb :index
 end
