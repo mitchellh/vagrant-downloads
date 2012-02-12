@@ -81,5 +81,6 @@ configure do
 end
 
 get '/' do
+  @tags = $tags.keys.sort.reverse
   erb :index
 end
