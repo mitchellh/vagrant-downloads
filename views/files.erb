@@ -3,7 +3,7 @@
 <table class="Module downloads table table-striped">
 	<% @files.each do |file| %>
 	<tr>
-		<td><a class="file" href="<%= file.public_url %>"><%= file.key.split("/").last %></a></td>
+		<td><a class="file" href="<%= file_url(file) %>"><%= file.key.split("/").last %></a></td>
 	</tr>
 	<% end %>
 </table>

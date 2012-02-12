@@ -85,6 +85,12 @@ before do
   end
 end
 
+helpers do
+  def file_url(file)
+    return "http://files.vagrantup.com/#{file.key}"
+  end
+end
+
 get '/' do
   @tags = $tags.keys.sort.reverse
   erb :index
