@@ -12,6 +12,9 @@ $packages = {}
 # to.
 $tags = {}
 
+# This is the last time the data was loaded
+$last_loaded = 0
+
 def reload!
   # Reload the tags from the GitHub repo
   tags = Tags.all(settings.github_repo)
@@ -67,15 +70,17 @@ configure do
                               :aws_secret_access_key => settings.aws_secret_access_key)
   $bucket  = $storage.directories.get(settings.aws_bucket)
 
-  # Create a thread that will refresh our data every so often
-  Thread.new do
-    while true
-      # Load all the things
-      puts "Reloading the S3 data..."
-      reload!
+  # Load initial data
+  reload!
+end
 
-      # Sleep for a long time
-      sleep((60 * 5) + rand(0..45))
+before do
+  if Time.now.to_i - $last_loaded > (10)
+    $last_loaded = Time.now.to_i
+
+    Thread.new do
+      logger.info "Reloading data..."
+      reload!
     end
   end
 end
