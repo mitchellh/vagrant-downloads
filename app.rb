@@ -38,7 +38,7 @@ def reload!
 
       # Record the package
       result_packages[commit] ||= []
-      result_packages[commit] << key
+      result_packages[commit] << file
     end
   end
 
