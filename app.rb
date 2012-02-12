@@ -29,7 +29,7 @@ def reload!
   $bucket.files.all(:prefix => "packages").each do |file|
     if file.key =~ /^packages\/([a-z0-9]+)\/(.+?)$/
       commit = $1.to_s
-      file   = $2.to_s
+      key    = $2.to_s
 
       # First check if we have a valid tag and if so, record it
       if tags.has_key?(commit)
@@ -38,7 +38,7 @@ def reload!
 
       # Record the package
       result_packages[commit] ||= []
-      result_packages[commit] << file
+      result_packages[commit] << key
     end
   end
 
@@ -83,4 +83,13 @@ end
 get '/' do
   @tags = $tags.keys.sort.reverse
   erb :index
+end
+
+get '/tags/:tag' do
+  return erb:'404' if !$tags.has_key?(params[:tag])
+  return erb:'404' if !$packages.has_key?($tags[params[:tag]])
+
+  @tag   = params[:tag]
+  @files = $packages[$tags[params[:tag]]]
+  erb :files
 end
