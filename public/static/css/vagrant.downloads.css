@@ -3,8 +3,15 @@
 }
 
 .Module.downloads a.tag {
-    display: block;
     background: url(/static/img/directoryicon.png) left top no-repeat transparent;
+}
+
+.Module.downloads a.file {
+    background: url(/static/img/downloadicon.png) left top no-repeat transparent;
+}
+
+.Module.downloads a.file, a.tag {
+    display: block;
     height: 25px;
     padding: 3px 0 0 35px;
 }
