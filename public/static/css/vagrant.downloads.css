@@ -1,0 +1,10 @@
+.Module.downloads {
+    margin-top: 20px;
+}
+
+.Module.downloads a.tag {
+    display: block;
+    background: url(/static/img/directoryicon.png) left top no-repeat transparent;
+    height: 25px;
+    padding: 3px 0 0 35px;
+}

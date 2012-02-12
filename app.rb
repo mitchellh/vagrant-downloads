@@ -56,6 +56,7 @@ configure do
 
   # Sinatra options
   enable :logging
+  set :static_cache_control, [:public, :max_age => 3600]
 
   # Output STDOUT immediately, do not buffer (for logging sake)
   $stdout.sync = true

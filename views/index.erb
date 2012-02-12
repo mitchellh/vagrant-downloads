@@ -1,1 +1,23 @@
-Hello
+<p>
+	This is the Vagrant download site. Below you will find a list of the
+	available versions to download, sorted in descending order so that the
+	latest release is always at the top. Click on the version you'd like to
+	download and you'll see a list of available packages.
+</p>
+
+<% if @tags.nil? %>
+<div class="alert alert-block alert-error">
+	<p>
+		No downloads are available for any release! This is likely a bug and
+		should be reported.
+	</p>
+</div>
+<% else %>
+<table class="Module downloads table table-striped">
+	<% @tags.each do |tag| %>
+	<tr>
+		<td><a class="tag" href="<%= url("/tags/#{tag}") %>"><%= tag %></a></td>
+	</tr>
+	<% end %>
+</table>
+<% end %>
