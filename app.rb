@@ -74,7 +74,7 @@ configure do
       reload!
 
       # Sleep for a long time
-      sleep(60 * 5)
+      sleep((60 * 5) + rand(0..45))
     end
   end
 end
