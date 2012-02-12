@@ -15,3 +15,23 @@
     height: 25px;
     padding: 3px 0 0 35px;
 }
+
+.Module.downloads a.file.type-dmg {
+    background: url(/static/img/icon-apple.png) left top no-repeat transparent;
+}
+
+.Module.downloads a.file.type-msi {
+    background: url(/static/img/icon-windows.png) left top no-repeat transparent;
+}
+
+.Module.downloads a.file.type-deb {
+    background: url(/static/img/icon-debian.png) left top no-repeat transparent;
+}
+
+.Module.downloads a.file.type-rpm {
+    background: url(/static/img/icon-rpm.png) left top no-repeat transparent;
+}
+
+.Module.downloads a.file.type-xz {
+    background: url(/static/img/icon-arch.png) left top no-repeat transparent;
+}

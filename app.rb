@@ -86,6 +86,10 @@ before do
 end
 
 helpers do
+  def file_type(file)
+    file.key.split(".").last
+  end
+
   def file_url(file)
     return "http://files.vagrantup.com/#{file.key}"
   end
