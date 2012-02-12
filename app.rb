@@ -75,7 +75,7 @@ configure do
 end
 
 before do
-  if Time.now.to_i - $last_loaded > (10)
+  if Time.now.to_i - $last_loaded > (60 * 5)
     $last_loaded = Time.now.to_i
 
     Thread.new do
