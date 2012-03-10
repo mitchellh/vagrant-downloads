@@ -96,12 +96,15 @@ helpers do
 end
 
 get '/' do
+  # Get all the tags, but ignore the ones that end in
+  # letters, which are betas.
   @tags = []
   $tags.keys.each do |tag|
     @tags << tag if tag !~ /\.[a-zA-Z].+$/
   end
 
-  @tags.sort!
+  # Then sort them and reverse
+  @tags = @tags.sort.reverse
   erb :index
 end
 
