@@ -96,7 +96,12 @@ helpers do
 end
 
 get '/' do
-  @tags = $tags.keys.sort.reverse
+  @tags = []
+  $tags.keys.each do |tag|
+    @tags << tag if tag !~ /\.[a-zA-Z].+$/
+  end
+
+  @tags.sort!
   erb :index
 end
 
