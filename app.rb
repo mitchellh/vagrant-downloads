@@ -19,6 +19,7 @@ def reload!
   # Reload the tags from the GitHub repo
   tags = Tags.all(settings.github_repo)
   tags = tags.invert
+  puts "Tags loaded: #{tags.values.sort}"
 
   # This will represent the list of valid tags as well as the full
   # list of packages.
@@ -48,6 +49,7 @@ def reload!
   # Flip the bits
   $packages = result_packages
   $tags     = result_tags
+  puts "Usable tags: #{$tags.keys.sort}"
 end
 
 configure do
