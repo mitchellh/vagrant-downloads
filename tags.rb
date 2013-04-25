@@ -8,7 +8,12 @@ class Tags
   # @param [String] repo
   # @return [Hash]
   def self.all(repo)
-    response = Excon.get("https://api.github.com/repos/#{repo}/git/refs")
+    response = Excon.get(
+      "https://api.github.com/repos/#{repo}/git/refs",
+      :headers => {
+        "User-Agent" => "Vagrant Downloaders Bot"
+      }
+    )
     data = JSON.parse(response.body)
 
     # Find all the tag objects and put them in the dictionary where their
