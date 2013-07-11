@@ -1,4 +1,7 @@
-require 'excon'
+require 'net/http'
+require 'net/https'
+require 'uri'
+
 require 'json'
 
 class Tags
@@ -8,13 +11,14 @@ class Tags
   # @param [String] repo
   # @return [Hash]
   def self.all(repo, token)
-    response = Excon.get(
-      "https://api.github.com/repos/#{repo}/git/refs",
-      :headers => {
-        "Authorization" => "token #{token}",
-        "User-Agent" => "Vagrant Downloaders Bot"
-      }
-    )
+    uri = URI.parse("https://api.github.com/repos/#{repo}/git/refs")
+    req = Net::HTTP::Get.new(uri.to_s)
+    req["Authorization"] = "token #{token}"
+    req["User-Agent"] = "Vagrant Downloader Bot"
+    response = Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+      http.request(req)
+    end
+
     data = JSON.parse(response.body)
 
     # Find all the tag objects and put them in the dictionary where their
