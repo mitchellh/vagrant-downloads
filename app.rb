@@ -17,7 +17,7 @@ $last_loaded = 0
 
 def reload!
   # Reload the tags from the GitHub repo
-  tags = Tags.all(settings.github_repo)
+  tags = Tags.all(settings.github_repo, settings.github_token)
   tags = tags.invert
   puts "Tags loaded: #{tags.values.sort}"
 
@@ -58,6 +58,7 @@ configure do
   set :aws_secret_access_key, ENV["AWS_SECRET_ACCESS_KEY"]
   set :aws_bucket, ENV["AWS_BUCKET"]
   set :github_repo, ENV["GITHUB_REPO"]
+  set :github_token, ENV["GITHUB_TOKEN"]
 
   # Sinatra options
   enable :logging

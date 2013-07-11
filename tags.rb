@@ -7,10 +7,11 @@ class Tags
   #
   # @param [String] repo
   # @return [Hash]
-  def self.all(repo)
+  def self.all(repo, token)
     response = Excon.get(
       "https://api.github.com/repos/#{repo}/git/refs",
       :headers => {
+        "Authorization" => "token #{token}",
         "User-Agent" => "Vagrant Downloaders Bot"
       }
     )
