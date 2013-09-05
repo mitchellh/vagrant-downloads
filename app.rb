@@ -24,7 +24,7 @@ def reload!
   # This will represent the list of valid tags as well as the full
   # list of packages.
   result_packages = {}
-  result_tags = {}
+  result_tags = {'latest' => 'latest'}
 
   # Reload the files listing for the bucket
   $bucket.reload
@@ -103,11 +103,12 @@ get '/' do
   # letters, which are betas.
   @tags = []
   $tags.keys.each do |tag|
-    @tags << tag if tag !~ /\.[a-zA-Z].+$/
+    @tags << tag if tag !~ /\.[a-zA-Z].+$/ || tag == 'latest'
   end
 
   # Then sort them and reverse
   @tags = @tags.sort.reverse
+  @tags.unshift @tags.delete_at(@tags.index { |x| x == 'latest' })
   erb :index
 end
 
