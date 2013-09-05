@@ -24,7 +24,7 @@ def reload!
   # This will represent the list of valid tags as well as the full
   # list of packages.
   result_packages = {}
-  result_tags = {'latest' => 'latest'}
+  result_tags = {}
 
   # Reload the files listing for the bucket
   $bucket.reload
@@ -45,6 +45,9 @@ def reload!
       result_packages[commit] << file
     end
   end
+
+  result_tags['latest'] = result_tags[result_tags.keys.sort.reverse[0]]
+  result_packages['latest'] = result_packages[result_tags['latest']]
 
   # Flip the bits
   $packages = result_packages
@@ -94,7 +97,11 @@ helpers do
   end
 
   def file_url(file)
-    return "http://files.vagrantup.com/#{file.key}"
+    if params[:tag] == 'latest'
+      return "/tags/latest/#{file.key.split("/").last.gsub(/(vagrant)[\_\-](\d+\.\d+\.\d+)[\.\_]/i, '')}"
+    else
+      return "http://files.vagrantup.com/#{file.key}"
+    end
   end
 end
 
@@ -119,4 +126,9 @@ get '/tags/:tag' do
   @tag   = params[:tag]
   @files = $packages[$tags[params[:tag]]]
   erb :files
+end
+
+get '/tags/latest/:name' do
+  file = $packages['latest'].select { |f| f.key =~ /#{params[:name]}/ }[0]
+  redirect file_url(file)
 end
