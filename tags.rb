@@ -11,7 +11,7 @@ class Tags
   # @param [String] repo
   # @return [Hash]
   def self.all(repo, token)
-    uri = URI.parse("https://api.github.com/repos/#{repo}/git/refs")
+    uri = URI.parse("https://api.github.com/repos/#{repo}/git/refs/tags")
     req = Net::HTTP::Get.new(uri.to_s)
     req["Authorization"] = "token #{token}"
     req["User-Agent"] = "Vagrant Downloader Bot"
