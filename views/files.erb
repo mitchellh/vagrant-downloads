@@ -1,9 +1,0 @@
-<h1><%= @tag %></h1>
-
-<table class="Module downloads table table-striped">
-	<% @files.each do |file| %>
-	<tr>
-		<td><a class="file type-<%= file_type(file) %>" href="<%= file_url(file) %>"><%= file.key.split("/").last %></a></td>
-	</tr>
-	<% end %>
-</table>
